@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-import { ReportHandler } from 'web-vitals';
 
-const reportWebVitals = (onPerfEntry?: ReportHandler) => {
-  if (onPerfEntry && onPerfEntry instanceof Function) {
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS(onPerfEntry);
-      getFID(onPerfEntry);
-      getFCP(onPerfEntry);
-      getLCP(onPerfEntry);
-      getTTFB(onPerfEntry);
-    });
-  }
+import React from 'react';
+import './Footer.scss';
+
+const Footer = () => {
+  return (
+    <div className="built-with">
+      <p>
+        Built with <br />
+        <a href="tbc">Multimodal Live API</a>
+      </p>
+    </div>
+  );
 };
 
-export default reportWebVitals;
+export default Footer; 
