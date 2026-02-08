@@ -80,17 +80,19 @@ function AltairComponent() {
       // send data for the response of your tool call
       // in this case Im just saying it was successful
       if (toolCall.functionCalls.length) {
-        setTimeout(
-          () =>
-            client.sendToolResponse({
-              functionResponses: toolCall.functionCalls?.map((fc) => ({
-                response: { output: { success: true } },
-                id: fc.id,
-                name: fc.name,
-              })),
-            }),
-          200
-        );
+        setTimeout(() => {
+          client.sendToolResponse({
+            functionResponses: toolCall.functionCalls?.map((fc) => ({
+              response: { output: { success: true } },
+              id: fc.id,
+              name: fc.name,
+            })),
+          });
+          // Signal that the client turn is complete so the model generates
+          // a fresh response and waits for user input instead of continuing
+          // to answer its own questions from the previous turn.
+          client.send([], true);
+        }, 200);
       }
     };
     client.on("toolcall", onToolCall);

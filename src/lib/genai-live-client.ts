@@ -182,6 +182,9 @@ export class GenAILiveClient extends EventEmitter<LiveClientEventTypes> {
     }
     if (message.toolCall) {
       this.log("server.toolCall", message);
+      // Interrupt any ongoing audio playback so the model doesn't continue
+      // speaking from its previous turn while the tool call is being processed.
+      this.emit("interrupted");
       this.emit("toolcall", message.toolCall);
       return;
     }
